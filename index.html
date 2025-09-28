@@ -145,7 +145,7 @@
         Priority booking.
       </p>
       <!-- Feedback Form -->
-      <form id="feedbackForm" action="http://localhost:4000/send/feedback" method="POST">
+      <form id="feedbackForm" action="/send/feedback" method="POST">
   <input type="text" name="name" id="feedbackName" placeholder="Your Name" required>
   <input type="email" name="email" id="feedbackEmail" placeholder="Your Email" required>
   <textarea name="message" id="feedbackMsg" placeholder="Your Feedback" required></textarea>
@@ -169,7 +169,7 @@
         </div>
       </div>
        <!-- Booking Form -->
-       <form id="bookingForm" action="http://localhost:4000/send/booking" method="POST" enctype="multipart/form-data">
+       <form id="bookingForm" action="/send/booking" method="POST" enctype="multipart/form-data">
   <input type="text" name="car" required>
   <input type="text" name="service" required>
   <input type="tel" name="phone" required>
