@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ararat-Auto</title>
+    <link rel="icon" type="image/jpeg" href="./assests/Imeges/icon2.jpg" />
+    <link rel="stylesheet" href="./assests/styles/main.css">
+    <link rel="stylesheet" href="./assests/styles/media.css">
+    <!-- Google Fonts for premium look -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher" tabindex="0">
+      <button class="lang-selected">
+        <span class="lang-label" id="langLabel">English</span>
+        <span class="lang-globe" id="langGlobe" aria-hidden="true">🌐</span>
+        <span class="lang-arrow">▼</span>
+      </button>
+      <ul class="lang-list">
+        <li data-lang="hy"><span class="lang-label">Armenian</span></li>
+        <li data-lang="ru"><span class="lang-label">Russian</span></li>
+        <li data-lang="en"><span class="lang-label">English</span></li>
+      </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('./assests/Imeges/background.png');">
+      <div class="hero-content">
+        <h1 id="heroTitle">Luxury Auto Care at Your Doorstep</h1>
+        <p id="heroSubtitle">Premium maintenance services for Yerevan’s finest vehicles—without the wait.</p>
+        <a href="#booking" class="cta-btn" id="bookServiceBtn">📅 Book Your Service</a>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="howItWorksSection" class="how-it-works">
+      <h2 id="howItWorks">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <img src="./assests/Imeges/Call.jpeg" alt="Book with Ease">
+          <h3 id="step1Title">Book with Ease</h3>
+          <p id="step1Text">Call us or book online in less than a minute.</p>
+        </div>
+        <div class="step">
+          <img src="./assests/Imeges/Location.png" alt="We Arrive Anywhere">
+          <h3 id="step2Title">We Arrive Anywhere You Need</h3>
+          <p id="step2Text">Our fully equipped mobile unit comes to your home, office, or private garage.</p>
+        </div>
+        <div class="step">
+          <img src="./assests/Imeges/slide3.png" alt="Premium Service, Zero Mess">
+          <h3 id="step3Title">Premium Service, Zero Mess</h3>
+          <p id="step3Text">From oil changes to OBD diagnostics, we work cleanly and efficiently.</p>
+        </div>
+        <div class="step">
+          <img src="./assests/Imeges/Checklist.png" alt="Transparent Checklist">
+          <h3 id="step4Title">Transparent Checklist</h3>
+          <p id="step4Text">Receive a digital and printed report of the work done—every detail documented.</p>
+        </div>
+        <div class="step">
+          <img src="./assests/Imeges/slide2.png" alt="Priority & Peace of Mind">
+          <h3 id="step5Title">Priority & Peace of Mind</h3>
+          <p id="step5Text">We leave your car spotless and ready to drive, and you keep full service history.</p>
+        </div>
+      </div>
+      <a href="#services" class="cta-btn secondary" id="seeServicesBtn">✔️ See Our Services</a>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services">
+      <h2 id="servicesTitle">Our Services</h2>
+      <ul>
+        <li>
+          <strong id="service1Title">Free OBD Diagnostic Scan</strong><br>
+          <span class="service-desc" id="service1Desc">Quick health check for your car’s electronic systems.</span>
+        </li>
+        <li>
+          <strong id="service2Title">Oil Change with Vacuum Technology</strong><br>
+          <span class="service-desc" id="service2Desc">No spills, no stains, eco-friendly disposal—done in minutes.</span>
+        </li>
+        <li>
+          <strong id="service3Title">Tire & Battery Services</strong><br>
+          <span class="service-desc" id="service3Desc">Through our trusted partners like Mechlien, ensuring only the highest quality.</span>
+        </li>
+        <li>
+          <strong id="service4Title">Priority Repairs at Our Garage</strong><br>
+          <span class="service-desc" id="service4Desc">For issues beyond mobile service, we fast-track you to our garage with priority treatment.</span>
+        </li>
+      </ul>
+      <p class="note" id="serviceNote">Prefer a specific brand or supplier? Tell us, and we’ll source your parts before arriving.</p>
+    </section>
+
+    <!-- Why Choose Ararat Auto -->
+    <section id="trust" class="trust">
+      <h2 id="trustTitle">Why Choose Ararat Auto</h2>
+      <div class="trust-content">
+        <img src="./assests/Imeges/slide2.png" alt="Professional Team">
+        <div>
+          <p id="trustP1">We don’t just maintain your car—we protect your peace of mind.</p>
+          <ul>
+            <li id="trustL1">Documented condition reports before and after service (photos/videos).</li>
+            <li id="trustL2">Signed digital and printed checklist with every visit.</li>
+            <li id="trustL3">Branded uniforms, gloves, and protective mats—your interior stays pristine.</li>
+            <li id="trustL4">Safe and eco-friendly oil and waste disposal, in compliance with standards.</li>
+          </ul>
+          <p id="trustP2">Ararat Auto is more than convenience—it’s professional care you can trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews">
+        <h2>Client Reviews</h2>
+        <div class="reviews-carousel-wrapper">
+            <button class="carousel-arrow left" aria-label="Previous Review">&#10094;</button>
+            <div class="reviews-carousel">
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <blockquote>
+                        “Finally a service that saves me time. They arrived on schedule, did a full oil change and OBD scan, and even emailed me a full report. I’ll never go back to the dealership.”
+                    </blockquote>
+                    <cite>– khatchig Maljian , Mercides Benz</cite>
+                </div>
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <blockquote>
+                        “The team was professional, quick, and spotless. I couldn’t believe my garage looked cleaner than before they arrived.”
+                    </blockquote>
+                    <cite>– miciel makdisi , Mercides Benz</cite>
+                </div>
+                </div>
+            </div>
+            <button class="carousel-arrow right" aria-label="Next Review">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- VIP Club / Feedback -->
+    <section id="feedback" class="feedback-section">
+      <h2 id="vipTitle">Join the VIP Club</h2>
+      <p id="vipDesc">
+        Stay ahead of your car’s needs. Get exclusive benefits:<br>
+        10% off your next service.<br>
+        Personalized reminders for oil changes, tire swaps, and inspections.<br>
+        Priority booking.
+      </p>
+      <!-- Feedback Form -->
+      <form id="feedbackForm" action="http://localhost:4000/send/feedback" method="POST">
+  <input type="text" name="name" id="feedbackName" placeholder="Your Name" required>
+  <input type="email" name="email" id="feedbackEmail" placeholder="Your Email" required>
+  <textarea name="message" id="feedbackMsg" placeholder="Your Feedback" required></textarea>
+  <button type="submit" id="feedbackBtn">✍️ Leave Feedback</button>
+</form>
+      <div id="formMessage"></div>
+    </section>
+
+    <!-- Contact & Booking -->
+    <section id="booking" class="booking-section">
+      <h2 id="contactBookingTitle">Contact & Booking</h2>
+      <div class="contact-info">
+        <div>
+          <strong id="phoneLabel">📞 Phone:</strong> <span id="phoneValue">+374 41-395655</span>
+        </div>
+        <div>
+          <strong id="emailLabel">📧 Email:</strong> <span id="emailValue">contact@araratauto.am</span>
+        </div>
+        <div>
+          <strong id="hoursLabel">🕑 Hours:</strong> <span id="hoursValue">Monday–Saturday, 9:00–20:00</span>
+        </div>
+      </div>
+       <!-- Booking Form -->
+       <form id="bookingForm" action="http://localhost:4000/send/booking" method="POST" enctype="multipart/form-data">
+  <input type="text" name="car" required>
+  <input type="text" name="service" required>
+  <input type="tel" name="phone" required>
+  <input type="datetime-local" name="time" required>
+  <input type="email" name="email" required>
+  <textarea name="comment" placeholder="Describe your issue (optional)"></textarea>
+  <input type="file" name="image" id="bookingImage" accept="image/*" multiple>
+  <div id="imagePreview"></div>
+  <button type="submit">Book Now</button>
+</form>
+      <div id="bookingMessage"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <img src="./assests/Imeges/icon2.jpg" alt="Ararat Auto Logo" class="footer-logo">
+      <nav class="footer-nav">
+        <a href="#services" id="footerServices">Services</a>
+        <a href="#reviews" id="footerReviews">Reviews</a>
+        <a href="#feedback" id="footerFeedback">Feedback</a>
+        <a href="#booking" id="footerContact">Contact</a>
+      </nav>
+      <div class="legal" id="footerLegal">
+        Licensed mobile auto service. All work guaranteed.
+      </div>
+      <div class="copyright" id="footerCopyright">
+        © 2025 Ararat Auto. All rights reserved.
+      </div>
+    </footer>
+    <script src="./assests/js/main.js"></script>
+    <script src="./assests/js/language.js"></script>
+    <script src="./assests/js/forms.js"></script>
+</body>
+</html>
