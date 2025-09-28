@@ -1,51 +1,43 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import nodemailer from "nodemailer";
 import rateLimit from "express-rate-limit";
 import { body, validationResult } from "express-validator";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import multer from "multer";
+import fs from "fs/promises";
+import sgMail from "@sendgrid/mail";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 4000;
-const upload = multer({ dest: "uploads/" }); // or configure as needed
+const upload = multer({ dest: "uploads/" });
 
-app.set("trust proxy", 1); // trust Render’s reverse proxy
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// 1. middleware
+app.set("trust proxy", 1);
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// 2. brute-force protection
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 50 });
 app.use("/send", limiter);
-
-// 3. serve the static front-end
 app.use(express.static(join(__dirname, "../")));
 
-// 4. mail transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false, // false for 587
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-function sendMail(to, subject, html) {
-  return transporter.sendMail({
-    from: `Ararat-Auto Site <${process.env.SMTP_USER}>`,
+// helper: send via SendGrid
+async function sendMail(to, subject, html, attachments = []) {
+  const msg = {
     to,
+    from: process.env.OWNER_EMAIL, // must be a verified sender or on an authenticated domain
     subject,
     html,
-  });
+    attachments: attachments.length ? attachments : undefined,
+  };
+  return sgMail.send(msg);
 }
 
-// 5. routes
+// Feedback route
 app.post(
   "/send/feedback",
   [
@@ -55,30 +47,26 @@ app.post(
   ],
   async (req, res) => {
     const errs = validationResult(req);
-    if (!errs.isEmpty())
-      return res.status(400).json({ ok: false, errors: errs.array() });
+    if (!errs.isEmpty()) return res.status(400).json({ ok: false, errors: errs.array() });
     const { name, email, message } = req.body;
     const html = `<h3>VIP Club Feedback</h3>
                   <p><strong>Name:</strong> ${name}<br>
                      <strong>Email:</strong> ${email}</p>
                   <p><strong>Message:</strong><br>${message}</p>`;
     try {
-      await sendMail(
-        process.env.OWNER_EMAIL,
-        `VIP Feedback from ${name}`,
-        html
-      );
+      await sendMail(process.env.OWNER_EMAIL, `VIP Feedback from ${name}`, html);
       res.json({ ok: true });
     } catch (e) {
-      console.error(e);
+      console.error("SendGrid error:", e);
       res.status(500).json({ ok: false, msg: "Mail error" });
     }
   }
 );
 
+// Booking route — supports file attachments (multer)
 app.post(
   "/send/booking",
-  upload.array("image"), // <-- allow multiple files
+  upload.array("image"),
   [
     body("car").trim().escape().notEmpty(),
     body("service").trim().escape().notEmpty(),
@@ -89,8 +77,7 @@ app.post(
   ],
   async (req, res) => {
     const errs = validationResult(req);
-    if (!errs.isEmpty())
-      return res.status(400).json({ ok: false, errors: errs.array() });
+    if (!errs.isEmpty()) return res.status(400).json({ ok: false, errors: errs.array() });
     const { car, service, phone, time, email, comment } = req.body;
     const date = new Date(time).toLocaleString("en-GB", { hour12: false });
     const html = `<h3>New Booking</h3>
@@ -99,28 +86,34 @@ app.post(
                      <strong>Phone:</strong> ${phone}<br>
                      <strong>Preferred time:</strong> ${date}</p>
                   <p><strong>Comment:</strong> ${comment || "None"}</p>`;
+
+    // convert multer files to SendGrid attachments (base64)
+    let attachments = [];
     try {
-      await transporter.sendMail({
-        from: `Ararat-Auto Site <${process.env.SMTP_USER}>`,
-        to: process.env.OWNER_EMAIL,
-        subject: `Booking: ${car}`,
-        html,
-        attachments: req.files
-          ? req.files.map((file) => ({
+      if (req.files && req.files.length) {
+        attachments = await Promise.all(
+          req.files.map(async (file) => {
+            const data = await fs.readFile(file.path);
+            // optional: remove file after reading
+            await fs.unlink(file.path).catch(() => {});
+            return {
+              content: data.toString("base64"),
               filename: file.originalname,
-              path: file.path,
-              contentType: file.mimetype,
-            }))
-          : [],
-      });
+              type: file.mimetype,
+              disposition: "attachment",
+            };
+          })
+        );
+      }
+
+      await sendMail(process.env.OWNER_EMAIL, `Booking: ${car}`, html, attachments);
       res.json({ ok: true });
     } catch (e) {
-      console.error(e);
+      console.error("SendGrid booking error:", e);
       res.status(500).json({ ok: false, msg: "Mail error" });
     }
   }
 );
 
-// 6. SPA catch-all
 app.get("*", (_, res) => res.sendFile(join(__dirname, "../index.html")));
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
