@@ -169,10 +169,10 @@
         </div>
       </div>
        <!-- Booking Form -->
-       <form id="bookingForm" action="/send/booking" method="POST" enctype="multipart/form-data">
-  <input type="text" name="car" required>
-  <input type="text" name="service" required>
-  <input type="tel" name="phone" required>
+       <form id="bookingForm" action="http://localhost:4000/send/booking" method="POST" enctype="multipart/form-data">
+  <input type="text" name="car" placeholder="Car Make & Model" required>
+  <input type="text" name="service" placeholder="Service Needed" required>
+  <input type="tel" name="phone" placeholder="Your Phone Number" required>
   <input type="datetime-local" name="time" required>
   <input type="email" name="email" placeholder="Your Email" required>
   <textarea name="comment" placeholder="Describe your issue (optional)"></textarea>
