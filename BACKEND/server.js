@@ -12,6 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const upload = multer({ dest: "uploads/" }); // or configure as needed
 
+app.set("trust proxy", 1); // trust Render’s reverse proxy
+
 // 1. middleware
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
