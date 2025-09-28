@@ -12,6 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const upload = multer({ dest: "uploads/" }); // or configure as needed
 
+app.set("trust proxy", 1); // trust Render’s reverse proxy
+
 // 1. middleware
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
@@ -28,8 +30,11 @@ app.use(express.static(join(__dirname, "../")));
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: true,
-  auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+  secure: false, // false for 587
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
 });
 function sendMail(to, subject, html) {
   return transporter.sendMail({
